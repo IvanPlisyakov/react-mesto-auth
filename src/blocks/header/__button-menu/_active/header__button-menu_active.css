@@ -1,0 +1,17 @@
+@keyframes move {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }  
+}
+
+.header__button-menu_active {
+  animation-name: move;
+  animation-duration: 1s;
+
+}

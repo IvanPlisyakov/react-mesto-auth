@@ -1,0 +1,27 @@
+.header__menu-mail {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: white;
+  margin: 0;  
+  align-self: end;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 900px){
+  .header__menu-mail {
+    max-height: 44px;
+    max-width: 260px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .header__menu-mail {
+    max-width: 600px;
+  } 
+}

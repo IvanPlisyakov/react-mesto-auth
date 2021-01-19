@@ -1,0 +1,16 @@
+.infoTooltip__image {
+  width: 120px;
+  height: 120px;
+}
+
+@media screen and (max-width: 900px){
+  .infoTooltip__image  {
+    margin: 50px auto 0 auto;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .infoTooltip__image  {
+    margin: 60px auto 0 auto;
+  } 
+}

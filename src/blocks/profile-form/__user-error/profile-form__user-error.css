@@ -1,0 +1,35 @@
+.profile-form__user-error {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  display: block;
+  color: red;
+  overflow-wrap: break-word;
+  margin: 0 auto 0 auto;
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+}
+
+@media screen and (max-width: 530px){
+    .profile-form__user-error   {
+      width: 210px;
+      transform: translate( 20px,0);
+    }
+  }
+  
+  @media screen and (max-width: 900px) and (min-width: 530px){
+    .profile-form__user-error   {
+      width: 83%;
+      transform: translate(calc((100% - 80%)/2),0);
+    }
+  }
+  
+  @media screen and (min-width: 900px) {
+    .profile-form__user-error  {
+      width: 358px;
+      transform: translate(35px,0);
+    } 
+  }

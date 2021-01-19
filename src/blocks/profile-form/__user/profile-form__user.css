@@ -1,0 +1,40 @@
+.profile-form__user {
+  color: black;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin: 28px auto 5px auto;
+  /*width: calc(100% - 4px);*/
+  height: 40px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  box-sizing: border-box;
+  display: block;
+}
+
+.profile-form__user:focus {
+  outline: none;
+  border: 2px solid rgba(18,47,170,0.5);
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+@media screen and (max-width: 530px){
+  .profile-form__user  {
+    width: 210px;
+  }
+}
+
+@media screen and (max-width: 900px) and (min-width: 530px){
+  .profile-form__user  {
+    width: 83%;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .profile-form__user {
+    width: 358px;
+  } 
+}

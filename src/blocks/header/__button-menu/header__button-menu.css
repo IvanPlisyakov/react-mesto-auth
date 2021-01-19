@@ -1,0 +1,30 @@
+@import url(./_active/header__button-menu_active.css);
+@import url(./_inActive/header__button-menu_inActive.css);
+
+
+
+
+
+@media screen and (max-width: 900px){
+  .header__button-menu {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+  
+  .header__button-menu:hover {
+    opacity: 0.85;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .header__button-menu {
+    display: none;
+  } 
+}
+
+
+
+
+

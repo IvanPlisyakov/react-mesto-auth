@@ -1,0 +1,23 @@
+.header__menu-btn {
+  border: none;
+  outline: none;
+  color: #A9A9A9;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;  
+  background-color: black;
+  cursor: pointer;
+  align-self: start;
+}
+
+.header__menu-btn:hover {
+  opacity: 0.85;
+}
+
+@media screen and (min-width: 900px) {
+  .header__menu-btn {
+    margin-left: 24px;
+  } 
+}

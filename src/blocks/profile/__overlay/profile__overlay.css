@@ -1,0 +1,22 @@
+.profile__overlay {border: 1px solid green;
+  background-color: red;
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  border: none;
+
+  background-color: initial;
+  background-repeat: no-repeat;
+  object-fit: cover;
+}
+
+.profile__overlay:hover .profile__avatar-button {
+  display: block;
+}
+
+.profile__overlay:hover .profile__avatar {
+  opacity: 0.7;
+}

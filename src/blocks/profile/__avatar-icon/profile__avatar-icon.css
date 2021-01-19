@@ -1,0 +1,17 @@
+.profile__avatar-icon {
+  background-image: url(../../../images/profile__avatar-button.svg);
+  background-color: initial;
+  background-repeat: no-repeat;
+  object-fit: cover;
+  position: absolute;
+  top: 47px;
+  left: 47px;
+  width: 26px;
+  height: 26px;
+  display: none;
+}
+
+.profile__avatar-button:hover .profile__avatar-icon{
+  display: block;
+
+}

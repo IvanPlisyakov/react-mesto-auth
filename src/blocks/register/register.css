@@ -1,0 +1,8 @@
+@import url(./__signin/register__signin.css);
+@import url(./__signin-text/register__signin-text.css);
+@import url(./__login-link/register__login-link.css);
+
+.register {
+  display: inline-flex;
+  flex-direction: column;
+}

@@ -1,0 +1,12 @@
+@import url(./__box/picture-opening__box.css);
+@import url(./__img/picture-opening__img.css);
+@import url(./__title/picture-opening__title.css);
+
+.picture-opening {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}

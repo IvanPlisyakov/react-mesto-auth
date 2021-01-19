@@ -1,0 +1,27 @@
+.profile-form__title {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  width: 100%;
+  margin: 0 auto 26px auto;
+}
+
+@media screen and (max-width: 530px){
+  .profile-form__title  {
+    width: 210px;
+  }
+}
+
+@media screen and (max-width: 900px) and (min-width: 530px){
+  .profile-form__title  {
+    width: 83%;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .profile-form__title {
+    width: 358px;
+  } 
+}

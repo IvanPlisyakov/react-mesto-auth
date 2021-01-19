@@ -1,0 +1,22 @@
+@media screen and (max-width: 900px){
+  .header__menu {
+    width: 260px;
+    margin: auto;
+    height: 142px;
+    position: absolute;
+    bottom: 0;
+    left: calc((100% - 260px)/2);
+    display: grid;
+    grid-template-rows: 62px 62px;
+    row-gap: 18px;
+    justify-items: center;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .header__menu {
+    width: 100%;
+    display: flex;
+  } 
+}
+

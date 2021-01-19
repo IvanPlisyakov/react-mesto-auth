@@ -1,0 +1,30 @@
+.sign-form__btn-save {
+  width: 100%;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.sign-form__btn-save:hover {
+  opacity: 0.85;
+}
+
+@media screen and (max-width: 900px){
+  .sign-form__btn-save {
+    height: 46px;
+    margin-top: 156px;
+    font-size: 16px;
+    line-height: 19px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .sign-form__btn-save {
+    height: 50px;
+    margin-top: 199px;
+    font-size: 18px;
+    line-height: 22px;
+  } 
+}

@@ -1,0 +1,15 @@
+@import url(./_active/header__menu-overlay_active.css);
+@import url(./_inActive/header__menu-overlay_inActive.css);
+
+
+@media screen and (max-width: 900px){
+  .header__menu-overlay {
+    position: relative;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .header__menu-overlay {
+    position: static;
+  } 
+}

@@ -1,0 +1,9 @@
+.profile-form__btn-save_inactive {
+  background-color: white;
+  color: #C4C4C4;
+  border: 2px solid #C4C4C4;
+}
+
+.profile-form__btn-save_inactive:hover {
+  opacity: 1;
+}

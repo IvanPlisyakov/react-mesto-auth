@@ -1,0 +1,7 @@
+.profile-form__user_type_error {
+  border-bottom: 1px solid red;
+}
+
+.profile-form__user_type_error:focus {
+  border-bottom-color: red;
+}

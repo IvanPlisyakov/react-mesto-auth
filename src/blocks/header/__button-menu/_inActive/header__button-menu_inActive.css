@@ -1,0 +1,16 @@
+@keyframes inMove {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }  
+}
+
+.header__button-menu_inActive {
+  animation-name: inMove;
+  animation-duration: 1s;
+}

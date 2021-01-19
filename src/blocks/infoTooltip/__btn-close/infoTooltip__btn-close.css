@@ -1,0 +1,34 @@
+.infoTooltip__btn-close {
+  position: absolute;
+  background-image: url(../../../images/profile-form__btn-close.svg);
+  object-fit: cover;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 41px;
+  height: 41px;
+  outline: none;
+  border: none;
+  right: -36px;
+  top: -36px;
+  cursor: pointer;
+}
+
+.infoTooltip__btn-close:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 900px){
+  .infoTooltip__btn-close  {
+    top: -50px;
+    left: 50%;
+    transform: translate(-50%, calc(-50% + 25px/2));
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .infoTooltip__btn-close  {
+    right: -36px;
+    top: -36px;
+  } 
+}
