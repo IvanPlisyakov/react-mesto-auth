@@ -68,7 +68,7 @@ export class Api {
     })
       .then((res) => {
         if (res.ok) {
-          return this.getInitialCards();//res.json();
+          return res.json();
        }
         return Promise.reject(`Ошибка: ${res.status}`);
       })
@@ -146,4 +146,77 @@ export const api = new Api( {
     'Content-Type': 'application/json'
   }
 }); 
+
+export class Auth {
+  constructor(data) {
+    this._baseUrl = data.baseUrl;
+    this._headers = data.headers;
+  }
+
+  register(password, email) {
+    return fetch(`${this._baseUrl}/signup`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        "password": String(password),
+        "email": String(email)
+      })
+    })
+    .then((response) => {
+      try {
+        if (response.status === 201){
+          return response.json();
+        }
+      } catch(e){
+        return (e)
+      }
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => console.log(err));
+  }
+
+  authorize(password, email) {
+    return fetch(`${this._baseUrl}/signin`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        "password": String(password),
+        "email": String(email)
+      })
+    })
+    .then((response => response.json()))
+    .then((data) => {
+      if (data.token){
+        localStorage.setItem('jwt', data.token);
+        return data;
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }; 
+
+  getContent(token) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: 'GET',
+      headers: {
+        ...this._headers,
+        'Authorization': `Bearer ${token}`,
+      }
+    })
+    .then(res => res.json())
+    .then(data => data)
+  }
+}
+
+export const auth = new Auth ({
+  baseUrl: 'https://auth.nomoreparties.co',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  }
+})
+
 

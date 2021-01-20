@@ -1,7 +1,7 @@
 import React from 'react';
 import SignWithForm from './SignWithForm';
 import { Link, withRouter, useHistory } from 'react-router-dom';
-import {auth} from '../auth.js';
+import {auth} from '../utils/api.js';
 
 function Login(props) {
   const [email, setEmail] = React.useState("");

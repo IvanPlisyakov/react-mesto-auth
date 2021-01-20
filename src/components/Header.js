@@ -26,11 +26,17 @@ function Header(props) {
   }
 
   const [screenWidth, setScreenWidth] = React.useState(document.documentElement.clientWidth);
-  window.addEventListener('resize', handleWindowResize);
 
   function handleWindowResize() {
     setScreenWidth(document.documentElement.clientWidth);
   }
+
+  React.useEffect(() => {
+    window.addEventListener('resize', handleWindowResize);
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  }, []);
 
   const Menu = (
    <div className={`header__menu-overlay ${isClassMenuActive === true && "header__menu-overlay_active" } ${isClassMenuActive === false && "header__menu-overlay_inActive" }`}>
@@ -52,7 +58,7 @@ function Header(props) {
       <img className="header__logo" src={headerLogo} alt="Логотип Mesto Russia"/>
       <Switch>
         <Route exact path="/">
-          <img className={`header__button-menu ${isClassMenuActive === true && "header__button-menu_active"} ${isClassMenuActive === false &&"header__button-menu_inActive"}`} src={isMenuOpen ? buttonClose : buttonMenu } onClick={() => {handleMenuClick()}}/>
+          <img className={`header__button-menu ${isClassMenuActive === true && "header__button-menu_active"} ${isClassMenuActive === false &&"header__button-menu_inActive"}`} src={isMenuOpen ? buttonClose : buttonMenu } onClick={() => {handleMenuClick()}} alt="Иконка меню"/>
           {screenWidth >= 882 && Menu}
         </Route>
         <Route path="/signup">

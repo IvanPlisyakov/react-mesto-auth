@@ -1,18 +1,15 @@
 import React from 'react';
 import SignWithForm from './SignWithForm';
 import { Link, withRouter, useHistory } from 'react-router-dom';
-import {auth} from '../auth.js';
+import {auth} from '../utils/api.js';
 
 
 function Register(props) {
-  //const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [isOpen, setIsOpen] = React.useState(false);
 
   const handleEmailChange = e => setEmail(e.target.value);
   const handlePasswordChange = e => setPassword(e.target.value);
-  //const handleConfirmPasswordChange = e => setConfirmPassword(e.target.value);
 
   const history = useHistory();
   function handleSubmit(e){

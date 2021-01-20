@@ -7,16 +7,16 @@ import EditAvatarPopup from './EditAvatarPopup';
 import EditProfilePopup from './EditProfilePopup';
 import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
-import {api} from '../utils/Api.js';
+import {api} from '../utils/api.js';
 import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
 import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
-import {auth} from '../auth.js';
+import {auth} from '../utils/api.js';
 
 import InfoTooltip from './InfoTooltip';
-import InfoTooltipOk from '../images/InfoTooltip_ok.svg'
-import InfoTooltipBadly from '../images/InfoTooltip_badly.svg'
+import InfoTooltipImageOk from '../images/InfoTooltip_ok.svg'
+import InfoTooltipImageBadly from '../images/InfoTooltip_badly.svg'
 
 //import InfoTooltip from './InfoTooltip';
 //import InfoTooltip_badly from '../images/InfoTooltip_badly.svg'
@@ -38,8 +38,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isOpenCardPopupOpen, setIsOpenCardPopupOpen] = React.useState(false);
-  const [isOpenInfoTooltipOkOpen, setIsOpenInfoTooltipOkOpen] = React.useState(false);
-  const [isOpenInfoTooltipBadlyOpen, setIsOpenInfoTooltipBadlyOpen] = React.useState(false);
+  const [isOpenInfoTooltipOpen, setIsOpenInfoTooltipOpen] = React.useState(false);
 
   const [selectedCard, setSelectedCard] = React.useState({});
 
@@ -47,6 +46,10 @@ function App() {
   const [userEmail, setUserEmail] = React.useState(""); 
 
   const [currentUser, setCurrentUser] = React.useState({});
+
+  const [infoTooltipImage, setInfoTooltipImage] = React.useState("");
+  const [infoTooltipText, setInfoTooltipText] = React.useState("");
+
 
   const history = useHistory();
 
@@ -56,8 +59,8 @@ function App() {
 
   React.useEffect(() => {
     api.getInitialProfile()
-      .then((data) => { setCurrentUser(data); })
-      .catch((err) => { sendStandartCatch(err); });
+      .then(setCurrentUser)
+      .catch(sendStandartCatch);
     tokenCheck();
   }, []); 
 
@@ -93,11 +96,15 @@ function App() {
   }
 
   function handleInfoTooltipOkOpen() {
-    setIsOpenInfoTooltipOkOpen(!isOpenInfoTooltipOkOpen)
+    setIsOpenInfoTooltipOpen(!isOpenInfoTooltipOpen)
+    setInfoTooltipImage(InfoTooltipImageOk)
+    setInfoTooltipText("Вы успешно зарегистрировались!")
   }
 
   function handleInfoTooltipBadlyOpen() {
-    setIsOpenInfoTooltipBadlyOpen(!isOpenInfoTooltipBadlyOpen)
+    setIsOpenInfoTooltipOpen(!isOpenInfoTooltipOpen)
+    setInfoTooltipImage(InfoTooltipImageBadly)
+    setInfoTooltipText("Что-то пошло не так! Попробуйте ещё раз.")
   }
 
   function closeAllPopups() {
@@ -105,8 +112,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsOpenCardPopupOpen(false);
-    setIsOpenInfoTooltipOkOpen(false)
-    setIsOpenInfoTooltipBadlyOpen(false)
+    setIsOpenInfoTooltipOpen(false)
     setSelectedCard({});
   }
 
@@ -124,11 +130,8 @@ function App() {
 
   function handleAddPlaceSubmit(cardData) {
     api.addCard(cardData.title, cardData.link)
-      .then((data) => { 
-        const newCard = data.find(function(c) {
-          return c.owner._id === currentUser._id
-        });
-        setCards([newCard, ...cards]);
+      .then((card) => { 
+        setCards([card, ...cards]);
         closeAllPopups();
        })
       .catch((err) => { sendStandartCatch(err); });
@@ -207,6 +210,25 @@ function App() {
       
           <ImagePopup card={selectedCard} isOpen={isOpenCardPopupOpen} onClose={closeAllPopups}/> 
           <InfoTooltip
+            isOpen={isOpenInfoTooltipOpen}
+            onClose={closeAllPopups}
+            image={infoTooltipImage}
+            title={infoTooltipText}
+          /> 
+        </div>
+    </CurrentUserContext.Provider >
+  );
+}
+
+export default App;
+
+/*
+              <Login
+                handleLogin={handleLogin}
+                handleInfoTooltipOkOpen={handleInfoTooltipOkOpen}
+                handleInfoTooltipBadlyOpen={handleInfoTooltipBadlyOpen}
+              />
+          <InfoTooltip
             isOpen={isOpenInfoTooltipOkOpen}
             onClose={closeAllPopups}
             name={"InfoTooltip-ok"}
@@ -220,14 +242,6 @@ function App() {
             image={InfoTooltipBadly}
             title={"Что-то пошло не так! Попробуйте ещё раз."}
          /> 
-        </div>
-    </CurrentUserContext.Provider >
-  );
-}
-
-export default App;
-
-/*
 
 
  

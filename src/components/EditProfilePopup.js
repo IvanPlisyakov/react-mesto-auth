@@ -15,8 +15,8 @@ function EditProfilePopup(props) {
 
   const currentUser = React.useContext(CurrentUserContext);
   React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
+    setName(currentUser.name || "");
+    setDescription(currentUser.about || "");
   }, [currentUser]);
 
   function handleSubmit(e) {
@@ -27,30 +27,25 @@ function EditProfilePopup(props) {
       about: description,
     });
   } 
-  
-  const EditProfilePopupChildren = (
-  <>
-    <label className="profile-form__field">
-      <input className="profile-form__user profile-form__user_data_name" id="name-input" value={name} onChange={handleChangeName} type="text" name="profile-сhange" minLength="2" maxLength="40" required/>
-      <span className="profile-form__user-error" id="name-input-error"></span>
-    </label>
-    <label className="profile-form__field">
-      <input className="profile-form__user profile-form__user_data_info" id="info-input" value={description} onChange={handleChangeDescription} type="text" name="profile-сhange" minLength="2" maxLength="200" required/>
-      <span className="profile-form__user-error" id="info-input-error"></span>
-    </label>
-  </>
-  )
 
   return (
     <PopupWithForm 
       isOpen={props.isOpen}
-      children={EditProfilePopupChildren}
       onSubmit={handleSubmit}
       formName="profile-сhange" 
       title="Редактировать профиль" 
       buttonSubmitText="Соханить" 
       onClose={props.onClose}
-    />
+    >
+      <label className="profile-form__field">
+        <input className="profile-form__user profile-form__user_data_name" id="name-input" value={name} onChange={handleChangeName} type="text" name="profile-сhange" minLength="2" maxLength="40" required/>
+        <span className="profile-form__user-error" id="name-input-error"></span>
+      </label>
+      <label className="profile-form__field">
+        <input className="profile-form__user profile-form__user_data_info" id="info-input" value={description} onChange={handleChangeDescription} type="text" name="profile-сhange" minLength="2" maxLength="200" required/>
+        <span className="profile-form__user-error" id="info-input-error"></span>
+      </label>
+    </PopupWithForm>
    )
 }
 
