@@ -166,6 +166,33 @@ function App() {
       })
       .catch((err) => { sendStandartCatch(err); });
   }
+
+  function handleSubmitLogin(inputData){
+    auth.authorize(inputData.password, inputData.email)
+      .then((data) => {
+        if(!data) {
+          handleInfoTooltipBadlyOpen();
+        }
+        if(data.token) {
+          handleInfoTooltipOkOpen();
+          handleLogin();
+          history.push('/')
+        }
+      })
+      .catch((err) => {console.log(err)})
+  }
+
+  function handleSubmitRegister(inputData){
+    auth.register(inputData.password, inputData.email)
+      .then((res) => {
+        if(res){
+          handleInfoTooltipOkOpen();
+          history.push('/signin');
+        } else {
+          handleInfoTooltipBadlyOpen();
+        }
+      });
+  }
   
 
   return (
@@ -186,17 +213,10 @@ function App() {
               component={Main}
             />
             <Route path="/signup">
-              <Register 
-                handleInfoTooltipOkOpen={handleInfoTooltipOkOpen}
-                handleInfoTooltipBadlyOpen={handleInfoTooltipBadlyOpen}
-              />
+              <Register handleSubmitRegister={handleSubmitRegister} />
             </Route>
             <Route path="/signin">
-              <Login
-                handleLogin={handleLogin}
-                handleInfoTooltipOkOpen={handleInfoTooltipOkOpen}
-                handleInfoTooltipBadlyOpen={handleInfoTooltipBadlyOpen}
-              />
+              <Login handleSubmitLogin={handleSubmitLogin} />
             </Route>
             <Route exact path="/"> 
             {loggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}

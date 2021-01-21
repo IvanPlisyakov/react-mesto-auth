@@ -1,8 +1,6 @@
 import React from 'react';
 import SignWithForm from './SignWithForm';
-import { Link, withRouter, useHistory } from 'react-router-dom';
-import {auth} from '../utils/api.js';
-
+import { Link, withRouter } from 'react-router-dom';
 
 function Register(props) {
   const [email, setEmail] = React.useState("");
@@ -11,19 +9,22 @@ function Register(props) {
   const handleEmailChange = e => setEmail(e.target.value);
   const handlePasswordChange = e => setPassword(e.target.value);
 
-  const history = useHistory();
-  function handleSubmit(e){
-    e.preventDefault()
-    auth.register(password, email)
-      .then((res) => {
-        if(res){
-          props.handleInfoTooltipOkOpen();
-          history.push('/signin');
-        } else {
-          props.handleInfoTooltipBadlyOpen();
-        }
-      });
+  function clearInputs() {
+    setEmail('');
+    setPassword('');
   }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    
+    props.handleSubmitRegister({
+      password: password,
+      email: email,
+    });
+
+    clearInputs();
+  }
+
   return (
     <section class="register">
       <SignWithForm 

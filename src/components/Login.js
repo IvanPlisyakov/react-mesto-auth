@@ -1,7 +1,5 @@
 import React from 'react';
 import SignWithForm from './SignWithForm';
-import { Link, withRouter, useHistory } from 'react-router-dom';
-import {auth} from '../utils/api.js';
 
 function Login(props) {
   const [email, setEmail] = React.useState("");
@@ -15,23 +13,17 @@ function Login(props) {
     setPassword('');
   }
 
-  const history = useHistory();
-  function handleSubmit(e){
-    e.preventDefault()
-    auth.authorize(password, email)
-      .then((data) => {
-        if(!data) {
-          props.handleInfoTooltipBadlyOpen();
-        }
-        if(data.token) {
-          props.handleInfoTooltipOkOpen();
-          props.handleLogin();
-          clearInputs();
-          history.push('/')
-        }
-      })
-      .catch((err) => {console.log(err)})
+  function handleSubmit(e) {
+    e.preventDefault();
+    
+    props.handleSubmitLogin({
+      password: password,
+      email: email,
+    });
+
+    clearInputs();
   }
+  
   return (
     <section class="login">
       <SignWithForm 
@@ -43,8 +35,7 @@ function Login(props) {
         handlePasswordChange={handlePasswordChange}
         password={password}
         handleSubmit={handleSubmit}
-        />
-        
+      />
     </section>
   )
 }
