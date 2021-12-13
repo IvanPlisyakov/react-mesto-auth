@@ -1,6 +1,6 @@
 import React from 'react';
 import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
-//import {api} from '../utils/Api.js';
+import PropTypes from 'prop-types';
 
 import imgButtonDeleteCap from '../images/element__img-cap.svg';
 import imgButtonDeleteUrn from '../images/element__img-urn.svg'
@@ -8,7 +8,7 @@ import imgButtonDeleteUrn from '../images/element__img-urn.svg'
 function Card(props) {
   const currentUser = React.useContext(CurrentUserContext);
 
-  const isOwn = props.card.owner._id === currentUser._id;
+  const isOwn = props.card.owner === currentUser._id;
 
   function handleClick() {
     props.onCardClick(props.card);
@@ -34,11 +34,19 @@ function Card(props) {
     <div className="element__column">
       <h4 className="element__title">{props.card.name}</h4>
       <div className="element__column-like">
-        <button className={`element__btn-like ${props.card.likes.some(i => i._id === currentUser._id) && 'element__btn-like_active'}`} type="button" onClick={handleLikeClick}></button>
+        <button className={`element__btn-like ${props.card.likes.some(i => i === currentUser._id) && 'element__btn-like_active'}`} type="button" onClick={handleLikeClick}></button>
         <p className="element__number-like">{props.card.likes.length}</p>
       </div>
     </div>
   </div>
   )
 }
+
+Card.propTypes = {
+  onCardClick: PropTypes.func,
+  onCardLike: PropTypes.func,
+  onCardDelete: PropTypes.func,
+  card: PropTypes.object,
+}
+
 export default Card;

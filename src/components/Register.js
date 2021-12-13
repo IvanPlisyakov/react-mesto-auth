@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import SignWithForm from './SignWithForm';
 import { Link, withRouter } from 'react-router-dom';
 
@@ -26,7 +27,7 @@ function Register(props) {
   }
 
   return (
-    <section class="register">
+    <section className="register">
       <SignWithForm 
         title="Регистрация"   
         formName="register" 
@@ -44,6 +45,10 @@ function Register(props) {
 
     </section>
   )
+}
+
+Register.propTypes = {
+  handleSubmitRegister: PropTypes.func,
 }
 
 export default withRouter(Register);

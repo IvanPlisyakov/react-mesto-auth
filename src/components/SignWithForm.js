@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function SignWithForm(props) {
   return (
@@ -15,6 +16,17 @@ function SignWithForm(props) {
       <button className="sign-form__btn-save" type="submit">{props.buttonSubmitText}</button>
     </form>
   )
+}
+
+SignWithForm.propTypes = {
+  formName: PropTypes.string,
+  title: PropTypes.string,
+  handleSubmit: PropTypes.func,
+  email: PropTypes.string,
+  handleEmailChange: PropTypes.func,
+  password: PropTypes.string,
+  handlePasswordChange: PropTypes.func,
+  buttonSubmitText: PropTypes.func,
 }
 
 export default SignWithForm;

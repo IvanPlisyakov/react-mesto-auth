@@ -1,5 +1,6 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
+import PropTypes from 'prop-types';
 
 function EditAvatarPopup(props) {
   const inputRef = React.useRef('');
@@ -27,6 +28,12 @@ function EditAvatarPopup(props) {
       </label>
     </PopupWithForm>
   )
+}
+
+EditAvatarPopup.propTypes = {
+  onUpdateAvatar: PropTypes.func,
+  isOpen: PropTypes.boll,
+  onClose: PropTypes.func,
 }
 
 export default EditAvatarPopup;

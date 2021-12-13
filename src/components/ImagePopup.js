@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 function ImagePopup(props) {
-
-
   return (
     <div className={`popup picture-opening ${props.isOpen && 'popup_opened'}`}>
       <div className="picture-opening__box">
@@ -11,6 +11,12 @@ function ImagePopup(props) {
       </div>
     </div>
   )
+}
+
+ImagePopup.propTypes = {
+  onClose: PropTypes.func,
+  isOpen: PropTypes.bool,
+  card: PropTypes.object,
 }
 
 export default ImagePopup;

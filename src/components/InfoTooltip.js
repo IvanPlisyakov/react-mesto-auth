@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function InfoTooltip(props) {
   return (
@@ -10,6 +11,13 @@ function InfoTooltip(props) {
     </div>
    </section>
   )
+}
+
+InfoTooltip.propTypes = {
+  image: PropTypes.string,
+  title: PropTypes.string,
+  onClose: PropTypes.func,
+  isOpen: PropTypes.func,
 }
 
 export default InfoTooltip;

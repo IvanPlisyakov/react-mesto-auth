@@ -1,5 +1,6 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
+import PropTypes from 'prop-types';
 
 function AddPlacePopup(props) {
   const [title, setTitle] = React.useState('');
@@ -48,5 +49,12 @@ function AddPlacePopup(props) {
     </PopupWithForm>
    )
 }
+
+AddPlacePopup.propTypes = {
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  onAddPlace: PropTypes.func,
+}
+
 
 export default AddPlacePopup;

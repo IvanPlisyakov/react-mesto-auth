@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import SignWithForm from './SignWithForm';
 
 function Login(props) {
@@ -25,7 +26,7 @@ function Login(props) {
   }
   
   return (
-    <section class="login">
+    <section className="login">
       <SignWithForm 
         title="Вход" 
         formName="login" 
@@ -38,6 +39,10 @@ function Login(props) {
       />
     </section>
   )
+}
+
+Login.propTypes = {
+  handleSubmitLogin: PropTypes.string,
 }
 
 export default Login;

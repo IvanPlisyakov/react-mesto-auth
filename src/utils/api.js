@@ -17,135 +17,157 @@ export class Api {
   }
 
   _sendStandartCatch(err) {
-    console.log(err); 
+    console.log(err);
   }
 
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {//карточки
+    return fetch(`${this._baseUrl}/cards`, { // карточки
       method: 'GET',
-      headers: this._headers,
+      headers: {
+        ...this._headers,
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
     })
-      .then((res) => {return this._sendStandartThen(res);})
-      //.catch((err) => {this._sendStandartCatch(err)});
+      .then((res) => this._sendStandartThen(res));
+    // .catch((err) => {this._sendStandartCatch(err)});
   }
-  
+
   getInitialProfile() {
-    return fetch(`${this._baseUrl}/users/me`, {//данные профиля
+    return fetch(`${this._baseUrl}/users/me`, { // данные профиля
       method: 'GET',
-      headers: this._headers,
+      headers: {
+        ...this._headers,
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
     })
-      .then((res) => {return this._sendStandartThen(res);})
-      //.catch((err) => {this._sendStandartCatch(err)});
+      .then((res) => this._sendStandartThen(res));
+    // .catch((err) => {this._sendStandartCatch(err)});
   }
 
   changeProfile(nameInput, infoInput) {
-    this._renderLoading(true, this.editFormName)
+    this._renderLoading(true, this.editFormName);
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        ...this._headers,
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
       body: JSON.stringify({
         name: nameInput,
-        about: infoInput
-      })
-    }) 
-    
-      .then((res) => {return this._sendStandartThen(res);})
-      //.catch((err) => {this._sendStandartCatch(err)})
+        about: infoInput,
+      }),
+    })
+
+      .then((res) => this._sendStandartThen(res))
+      // .catch((err) => {this._sendStandartCatch(err)})
       .finally(() => {
-        this._renderLoading(false, this.editFormName)
+        this._renderLoading(false, this.editFormName);
       });
   }
 
-  addCard( name, link) {
-    this._renderLoading(true, this.addFormName)
-    return fetch(`${this._baseUrl}/cards`, {//делаем запрос, что мы добавили новую карточку
+  addCard(name, link) {
+    this._renderLoading(true, this.addFormName);
+    return fetch(`${this._baseUrl}/cards`, { // делаем запрос, что мы добавили новую карточку
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        ...this._headers,
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
       body: JSON.stringify({
-        name: name,
-        link: link
-      })
+        name,
+        link,
+      }),
     })
       .then((res) => {
         if (res.ok) {
           return res.json();
-       }
+        }
         return Promise.reject(`Ошибка: ${res.status}`);
       })
-      //.catch((err) => {this._sendStandartCatch(err)})
+      // .catch((err) => {this._sendStandartCatch(err)})
       .finally(() => {
-        this._renderLoading(false, this.addFormName)
+        this._renderLoading(false, this.addFormName);
       });
   }
 
-
   addLikeItem(idItem) {
-    return fetch(`${this._baseUrl}/cards/likes/${idItem}`, {
+    return fetch(`${this._baseUrl}/cards/${idItem}/likes`, {
       method: 'PUT',
-      headers: this._headers
+      headers: {
+        ...this._headers,
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
     })
-      .then((res) => {return this._sendStandartThen(res);})
-      //.then((data) => {console.log(data)})
-     // .catch((err) => {this._sendStandartCatch(err)})
+      .then((res) => this._sendStandartThen(res));
+    // .then((data) => {console.log(data)})
+    // .catch((err) => {this._sendStandartCatch(err)})
   }
 
   removeLikeItem(idItem) {
-    return fetch(`${this._baseUrl}/cards/likes/${idItem}`, {
+    return fetch(`${this._baseUrl}/cards/${idItem}/likes`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: {
+        ...this._headers,
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
     })
-    .then((res) => {return this._sendStandartThen(res);})
-      //.catch((err) => {this._sendStandartCatch(err)})
+      .then((res) => this._sendStandartThen(res));
+    // .catch((err) => {this._sendStandartCatch(err)})
   }
 
-  changeLikeCardStatus(idItem, likeStatus){
-    if(likeStatus) {
-      return this.addLikeItem(idItem)
-    } else {
-      return this.removeLikeItem(idItem)
+  changeLikeCardStatus(idItem, likeStatus) {
+    if (likeStatus) {
+      return this.addLikeItem(idItem);
     }
+    return this.removeLikeItem(idItem);
   }
 
   deleteItem(idItem) {
     return fetch(`${this._baseUrl}/cards/${idItem}`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: {
+        ...this._headers,
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
     })
-    .then((res) => {return this._sendStandartThen(res);})
-      //.catch((err) => {this._sendStandartCatch(err)})
+      .then((res) => this._sendStandartThen(res));
+    // .catch((err) => {this._sendStandartCatch(err)})
   }
 
   changeAvatarProfile(link) {
-    this._renderLoading(true, this.avatarFormName)
+    this._renderLoading(true, this.avatarFormName);
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        ...this._headers,
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
       body: JSON.stringify({
-        avatar: link
-      })
+        avatar: link,
+      }),
     })
-      .then((res) => {return this._sendStandartThen(res);})
+      .then((res) => this._sendStandartThen(res))
       .finally(() => {
-        this._renderLoading(false, this.avatarFormName)
+        this._renderLoading(false, this.avatarFormName);
       });
   }
 
   _renderLoading(isLoading, popupSelector) {
-    if(isLoading) {
-      document.querySelector(`form[name=${popupSelector}]`).querySelector('.profile-form__btn-save').textContent = "Сохранение..."
+    if (isLoading) {
+      document.querySelector(`form[name=${popupSelector}]`).querySelector('.profile-form__btn-save').textContent = 'Сохранение...';
     } else {
-      document.querySelector(`form[name=${popupSelector}]`).querySelector('.profile-form__btn-save').textContent = "Сохранить"
+      document.querySelector(`form[name=${popupSelector}]`).querySelector('.profile-form__btn-save').textContent = 'Сохранить';
     }
   }
 }
 
-export const api = new Api( {
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-16',
+export const api = new Api({
+  baseUrl: 'https://express-mesto.vercel.app',// 'https://api.spora.students.nomoredomains.monster', // 'http://localhost:3000',//'http://motherShaker.students.nomoredomains.monster',//'https://mesto.nomoreparties.co/v1/cohort-16',
   headers: {
-    authorization: '12ba02f1-21d1-4be5-b67c-2a240b5b5b87',
-    'Content-Type': 'application/json'
-  }
-}); 
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+});
 
 export class Auth {
   constructor(data) {
@@ -158,23 +180,21 @@ export class Auth {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        "password": String(password),
-        "email": String(email)
-      })
+        password: String(password),
+        email: String(email),
+      }),
     })
-    .then((response) => {
-      try {
-        if (response.status === 201){
-          return response.json();
+      .then((response) => {
+        try {
+          if (response.status === 201) {
+            return response.json();
+          }
+        } catch (e) {
+          return (e);
         }
-      } catch(e){
-        return (e)
-      }
-    })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => console.log(err));
+      })
+      .then((res) => res)
+      .catch((err) => console.log(err));
   }
 
   authorize(password, email) {
@@ -182,41 +202,39 @@ export class Auth {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        "password": String(password),
-        "email": String(email)
+        password: String(password),
+        email: String(email),
+      }),
+    })
+      .then(((response) => response.json()))
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem('jwt', data.token);
+          return data;
+        }
       })
-    })
-    .then((response => response.json()))
-    .then((data) => {
-      if (data.token){
-        localStorage.setItem('jwt', data.token);
-        return data;
-      }
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }; 
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
-  getContent(token) {
+  getContent() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       headers: {
         ...this._headers,
-        'Authorization': `Bearer ${token}`,
-      }
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
     })
-    .then(res => res.json())
-    .then(data => data)
+      .then((res) => res.json())
+      .then((data) => data);
   }
 }
 
-export const auth = new Auth ({
-  baseUrl: 'https://auth.nomoreparties.co',
+export const auth = new Auth({
+  baseUrl: 'https://express-mesto.vercel.app', //'http://localhost:3001', //'https://api.spora.students.nomoredomains.monster', // 'http://localhost:3000',//'http://motherShaker.students.nomoredomains.monster',//'https://auth.nomoreparties.co',
   headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-  }
-})
-//
-
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+});

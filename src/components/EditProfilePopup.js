@@ -1,7 +1,8 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
-//import {EditProfilePopupChildren} from '../utils/constants.js';
+import PropTypes from 'prop-types';
+
 function EditProfilePopup(props) {
   const [name, setName] = React.useState('');
   function handleChangeName(e) {
@@ -47,6 +48,12 @@ function EditProfilePopup(props) {
       </label>
     </PopupWithForm>
    )
+}
+
+EditProfilePopup.propTypes = {
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  onUpdateUser: PropTypes.func,
 }
 
 export default EditProfilePopup;

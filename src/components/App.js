@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
-import { Route, Switch, Redirect, withRouter, useHistory } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import EditAvatarPopup from './EditAvatarPopup';
 import EditProfilePopup from './EditProfilePopup';
 import AddPlacePopup from './AddPlacePopup';
@@ -26,7 +26,7 @@ import InfoTooltipImageBadly from '../images/InfoTooltip_badly.svg'
 function App() {
   function sendStandartCatch(err) {
     console.log(err); 
-    alert("Что-то пошло не так.")
+    console.log("Что-то пошло не так.")
   }
 
   function sendStandartCurrentUserThen(data) {
@@ -43,7 +43,7 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({});
 
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [userEmail, setUserEmail] = React.useState(""); 
+
 
   const [currentUser, setCurrentUser] = React.useState({});
 
@@ -57,19 +57,22 @@ function App() {
     setLoggedIn(true)
   }
 
-  React.useEffect(() => {
-    api.getInitialProfile()
-      .then(setCurrentUser)
-      .catch(sendStandartCatch);
-    tokenCheck();
-  }, []); 
+  function getMainData() {
+    api.getInitialCards()
+      .then((data) => {
+        setCards(data)
+      })
+      .catch((err) => { sendStandartCatch(err); });
+    auth.getContent()
+      .then((res) => {
+        setCurrentUser(res)
+      })
+  }
 
   function tokenCheck() {
     if (localStorage.getItem('jwt')){
-      const jwt = localStorage.getItem('jwt');
-      auth.getContent(jwt)
-        .then((res) => {
-          setUserEmail(res.data.email)
+      auth.getContent()
+        .then(() => {
           setLoggedIn(true);
           history.push('/');
         })
@@ -77,6 +80,13 @@ function App() {
       setLoggedIn(false);
     }
   }
+
+  React.useEffect(() => {
+    tokenCheck();
+    console.log(location.protocol + "//" + location.host)
+  }, []); 
+
+
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -118,13 +128,17 @@ function App() {
 
   function handleUpdateAvatar(avatarData) {
     api.changeAvatarProfile(avatarData.avatar)
-      .then((data) => { sendStandartCurrentUserThen(data); })
+      .then((data) => { 
+        sendStandartCurrentUserThen(data); 
+      })
       .catch((err) => { sendStandartCatch(err); });
   }
 
   function handleUpdateUser(profileData) {
     api.changeProfile(profileData.name, profileData.about)
-      .then((data) => { sendStandartCurrentUserThen(data); })
+      .then((data) => { 
+        sendStandartCurrentUserThen(data); 
+      })
       .catch((err) => { sendStandartCatch(err); });
   }
 
@@ -138,16 +152,17 @@ function App() {
   }
 
   const [cards, setCards] = React.useState([]);
-  React.useEffect(() => {
-    api.getInitialCards()
+  /*React.useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    api.getInitialCards(jwt)
       .then((data) => {
         setCards(data)
       })
       .catch((err) => { sendStandartCatch(err); });
-  }, []);
+  }, []);*/
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
         const newCards = cards.map((c) => c._id === card._id ? newCard : c);
@@ -158,7 +173,7 @@ function App() {
 
   function handleCardDelete(card){
     api.deleteItem(card._id)
-      .then((data) => {
+      .then(() => {
         const newCards = cards.filter(function(c) {
           return c._id !== card._id
         });
@@ -198,7 +213,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
         <div className="page">
-          <Header userEmail={userEmail}/>
+          <Header />
           <Switch>
             <ProtectedRoute exact 
               path="/"
@@ -209,6 +224,7 @@ function App() {
               cards={cards}
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
+              getMainData={getMainData}
               loggedIn={loggedIn}
               component={Main}
             />
@@ -267,7 +283,7 @@ export default App;
  
 
 
-
+// eslint-disable-line react-hooks/exhaustive-deps
 <PopupWithForm children={EditAvatarPopupChildren} isOpen={isEditAvatarPopupOpen} name="avatar-сhange" title="Обновить аватар" buttonSubmitText="Соханить" onClose={closeAllPopups} />
 <PopupWithForm children={EditProfilePopupChildren} isOpen={isEditProfilePopupOpen} name="profile-сhange" title="Редактировать профиль" buttonSubmitText="Соханить" onClose={closeAllPopups} />
           <PopupWithForm children={AddPlacePopupChildren} isOpen={isAddPlacePopupOpen} name="adding-a-picture" title="Новое место" buttonSubmitText="Соханить" onClose={closeAllPopups} />

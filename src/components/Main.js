@@ -1,11 +1,15 @@
 import React from 'react';
 import Card from './Card';
-//import {api} from '../utils/Api.js';
+import PropTypes from 'prop-types';
 import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
 //import {CardsContext} from './CardsContext.js'
 
 function Main(props) {
   const currentUser = React.useContext(CurrentUserContext);
+
+  React.useEffect(() => {
+    props.getMainData()
+  }, []);
 
   return (
      <main className="main">
@@ -33,4 +37,16 @@ function Main(props) {
     </main>
  )
 }
+
+Main.propTypes = {
+  getMainData: PropTypes.func,
+  onEditAvatar: PropTypes.func,
+  onEditProfile: PropTypes.func,
+  onAddPlace: PropTypes.func,
+  onCardLike: PropTypes.func,
+  onCardDelete: PropTypes.func,
+  onCardClick: PropTypes.func,
+  cards: PropTypes.array,
+}
+
 export default Main;

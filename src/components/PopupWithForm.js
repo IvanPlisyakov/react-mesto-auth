@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function PopupWithForm(props) {
   return (
@@ -11,6 +12,17 @@ function PopupWithForm(props) {
     </form>
    </section>
   )
+}
+
+PopupWithForm.propTypes = {
+  formName: PropTypes.string,
+  name: PropTypes.string,
+  isOpen: PropTypes.bool,
+  title: PropTypes.string,
+  onSubmit: PropTypes.func,
+  onClose: PropTypes.func,
+  children: PropTypes.element,
+  buttonSubmitText: PropTypes.func,
 }
 
 export default PopupWithForm;
